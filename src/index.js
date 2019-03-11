@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import styles from './styles.css'
 
 export * from './SeatPicker/SeatPicker'
+//import './styles/index.scss'
 
 export default class ExampleComponent extends Component {
   static propTypes = {

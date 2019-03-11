@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import RowNumber from './RowNumber'
 import cx from 'classnames'
 //import '../styles/index.scss'
+import styles from '../styles/components/SeatPicker/Row.css'
 
 export default class Row extends Component {
   static propTypes = {
@@ -24,10 +25,18 @@ export default class Row extends Component {
     const { visible, rowNumber, isSelected } = this.props
     const bold = over || isSelected
     const className = cx(
-      'Row',
-      { 'Row--enabled': !isSelected },
-      { 'Row--selected': isSelected }
+      styles.Row,//'Row',
+      { [styles['Row--enabled']]: !isSelected },//{ 'Row--enabled': !isSelected },
+      { [styles['Row--selected']]: isSelected }//{ 'Row--selected': isSelected }
     )
+      //console.log("hola",className)
+      //import styles from "./capsule.css";
+
+      // let className = cx(styles.base, {
+      //   [styles.clickable]: this.props.clickable,
+      //   [styles.withIcon]: !!this.props.icon
+      // });
+//return <div classNames={[styles.base, styles.clickable, styles.withIcon].join(' ')} />
     return (
       <div
         className={className}

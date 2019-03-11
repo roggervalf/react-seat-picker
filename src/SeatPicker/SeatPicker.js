@@ -4,7 +4,8 @@ import Row from './Row'
 import Immutable, { Map, Set } from 'immutable'
 import Seat from './Seat'
 import Blank from './Blank'
-import '../styles/index.scss'
+//import '../styles/index.scss'
+import styles from '../styles/components/SeatPicker/SeatPicker.css'
 
 export class SeatPicker extends Component {
   static propTypes = {
@@ -82,7 +83,7 @@ export class SeatPicker extends Component {
 
   render () {
     const { width } = this.state
-    return <div style={{ width }}>{this.renderRows()}</div>
+    return <div className={styles.SeatPicker} style={{ width }}>{this.renderRows()}</div>
   }
 
   renderRows () {
