@@ -5,7 +5,7 @@ import PropTypes from 'prop-types'
 import RowNumber from './RowNumber'
 import cx from 'classnames'
 //import '../styles/index.scss'
-import styles from '../styles/components/SeatPicker/Row.css'
+import styles from '../styles/components/SeatPicker/Row.scss'
 
 export default class Row extends Component {
   static propTypes = {

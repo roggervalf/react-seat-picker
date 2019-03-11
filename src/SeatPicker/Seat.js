@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
 //import '../styles/index.scss'
-import styles from '../styles/components/SeatPicker/Seat.css'
+import styles from '../styles/components/SeatPicker/Seat.scss'
 
 export default class Seat extends Component {
   static propTypes = {
