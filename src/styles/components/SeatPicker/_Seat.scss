@@ -1,0 +1,49 @@
+.Seat {
+  background-color: rgba(#4FC3F7, 0.75);
+  margin-right: 2px;
+  height: 25px;
+  width: 25px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .SeatNumber{
+    font-size: 10px
+  }
+}
+
+.Seat--north {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.Seat--south {
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.Seat--east {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.Seat--west {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.Seat--enabled {
+  cursor: pointer;
+  &:hover { background-color: #03A9F4; }
+}
+
+.Seat--selected {
+  cursor: pointer;
+  background-color: rgba(#4CAF50, 0.75);
+}
+
+.Seat--reserved {
+  cursor: not-allowed;
+  background-color: rgba(#E0E0E0, 0.20);
+}
