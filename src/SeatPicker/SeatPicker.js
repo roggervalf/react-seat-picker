@@ -5,7 +5,6 @@ import Immutable, { Map, Set } from 'immutable'
 import Seat from './Seat'
 import Blank from './Blank'
 //import '../styles/index.scss'
-import styles from '../styles/components/SeatPicker/SeatPicker.scss'
 
 export class SeatPicker extends Component {
   static propTypes = {
@@ -13,7 +12,7 @@ export class SeatPicker extends Component {
     alpha: PropTypes.bool,
     removeSeatCallback: PropTypes.func,
     maxReservableSeats: PropTypes.number,
-    // rows: PropTypes.arrayOf(
+    //rows: PropTypes.arrayOf(
     //   PropTypes.arrayOf(
     //     PropTypes.shape({
     //       number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
@@ -83,7 +82,9 @@ export class SeatPicker extends Component {
 
   render () {
     const { width } = this.state
-    return <div className={styles.SeatPicker} style={{ width }}>{this.renderRows()}</div>
+    return <div 
+    className="SeatPicker" 
+    style={{ width }}>{this.renderRows()}</div>
   }
 
   renderRows () {

@@ -1,0 +1,14 @@
+.Row {
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Row--enabled {
+  &:hover { background-color: green; }
+}
+
+.Row--selected {
+  background-color: green;
+}
