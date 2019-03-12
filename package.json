@@ -1,7 +1,7 @@
 {
   "name": "react-seat-picker",
-  "version": "1.0.0",
-  "description": "",
+  "version": "1.0.2",
+  "description": "A React component to select seats.",
   "author": "Rogger794",
   "license": "MIT",
   "repository": "Rogger794/react-seat-picker",
@@ -21,6 +21,12 @@
     "predeploy": "cd example && yarn install && yarn run build",
     "deploy": "gh-pages -d example/build"
   },
+  "keywords": [
+    "seat",
+    "react",
+    "picker",
+    "react-seat-picker"
+  ],
   "peerDependencies": {
     "prop-types": "^15.5.4",
     "react": "^15.0.0 || ^16.0.0",
