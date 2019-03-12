@@ -13,20 +13,9 @@ export default class RowNumber extends Component {
   render () {
     const style = { fontWeight: this.props.bold ? 600 : 'normal' }
     return this.props.visible ? (
-      <div style={style} 
-      className="RowNumber"
-      >
+      <div style={style} className="RowNumber">
         {this.props.rowNumber}
       </div>
     ) : null
   }
 }
-
-// RowNumber.propTypes = {
-//   rowNumber: PropTypes.string,
-//   bold: PropTypes.bool
-// }
-
-// const R = RowNumber
-
-// export default R

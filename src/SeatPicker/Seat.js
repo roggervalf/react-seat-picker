@@ -8,8 +8,9 @@ import cx from 'classnames'
 export default class Seat extends Component {
   static propTypes = {
     isSelected: PropTypes.bool,
-    isReserved: PropTypes.bool
-    //seatNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+    isReserved: PropTypes.bool,
+    orientation: PropTypes.string,
+    seatNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
     //   selectSeat: PropTypes.func.isRequired
   }
 
@@ -38,24 +39,9 @@ export default class Seat extends Component {
         { [`Seat--${orientation ? orientation : 'north'}`]: true }
       )
     return (
-      <div 
-      className={className} 
-      onClick={this.handleClick}>
-        <span 
-        className="SeatNumber"
-        >{this.props.seatNumber}</span>
+      <div className={className} onClick={this.handleClick}>
+        <span className='SeatNumber'>{this.props.seatNumber}</span>
       </div>
     )
   }
 }
-
-// Seat.propTypes = {
-//   isSelected: PropTypes.bool,
-//   isReserved: PropTypes.bool
-//   //seatNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-//   //   selectSeat: PropTypes.func.isRequired
-// }
-
-// const S = Seat
-
-// export default S

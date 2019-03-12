@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-import {SeatPicker} from 'react-seat-picker'
+import SeatPicker from 'react-seat-picker'
 import './styles/index.scss'
 
 export default class App extends Component {

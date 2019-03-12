@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Row from './Row'
-import Immutable, { Map, Set } from 'immutable'
+import { Map, Set } from 'immutable'
 import Seat from './Seat'
 import Blank from './Blank'
 //import '../styles/index.scss'
@@ -10,16 +10,17 @@ export class SeatPicker extends Component {
   static propTypes = {
     addSeatCallback: PropTypes.func,
     alpha: PropTypes.bool,
+    visible: PropTypes.bool,
     removeSeatCallback: PropTypes.func,
     maxReservableSeats: PropTypes.number,
-    //rows: PropTypes.arrayOf(
-    //   PropTypes.arrayOf(
-    //     PropTypes.shape({
-    //       number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-    //       isReserved: PropTypes.bool
-    //     })
-    //   )
-    // ).isRequired,
+    rows: PropTypes.arrayOf(
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+          isReserved: PropTypes.bool
+        })
+      )
+    ).isRequired,
     seatWidth: PropTypes.number
   }
 
@@ -82,9 +83,7 @@ export class SeatPicker extends Component {
 
   render () {
     const { width } = this.state
-    return <div 
-    className="SeatPicker" 
-    style={{ width }}>{this.renderRows()}</div>
+    return <div className='SeatPicker' style={{ width }}>{this.renderRows()}</div>
   }
 
   renderRows () {

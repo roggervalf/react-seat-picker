@@ -34,8 +34,7 @@ export default class Row extends Component {
     const className = cx(
       'Row',
       { 'Row--enabled': !isSelected },
-      { 'Row--selected': isSelected }
-      )
+      { 'Row--selected': isSelected })
 
     return (
       <div
@@ -49,11 +48,3 @@ export default class Row extends Component {
     )
   }
 }
-
-// Row.propTypes = {
-//   rowNumber: PropTypes.string //.isRequired
-// }
-
-// const R = Row
-
-// export default R

@@ -1,6 +1,7 @@
 import './styles/index.scss'
-export * from './SeatPicker/SeatPicker'
+import {SeatPicker} from './SeatPicker/SeatPicker'
 
+export default SeatPicker
 // export default class ExampleComponent extends Component {
 //   static propTypes = {
 //     text: PropTypes.string
