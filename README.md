@@ -4,9 +4,13 @@
 
 [![NPM](https://img.shields.io/npm/v/react-seat-picker.svg)](https://www.npmjs.com/package/react-seat-picker) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
+## Demo
+
+This is the [Demo Page](https://rogger794.github.io/react-seat-picker/).
+
 ## About
 
-This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap)
+This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap).
 
 ## Install
 
