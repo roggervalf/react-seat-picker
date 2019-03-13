@@ -14,6 +14,7 @@ export default class App extends Component {
     ]
     return (
       <div>
+        <h1>sad</h1>
         <SeatPicker className='SeatPicker' rows={rows} maxReservableSeats={3} alpha />
         {/* <ExampleComponent text='Modern React component module' /> */}
       </div>
