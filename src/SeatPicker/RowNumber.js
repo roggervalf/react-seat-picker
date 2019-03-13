@@ -1,9 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-//import '../styles/index.scss'
-
-//import '../styles/index.scss'
-//import styles from '../styles/components/SeatPicker/RowNumber.scss'
 
 export default class RowNumber extends Component {
   static propTypes = {

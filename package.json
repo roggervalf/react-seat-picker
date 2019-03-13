@@ -1,6 +1,6 @@
 {
   "name": "react-seat-picker",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "A React component to select seats.",
   "author": "Rogger794",
   "license": "MIT",
@@ -69,7 +69,6 @@
     "dist"
   ],
   "dependencies": {
-    "classnames": "^2.2.6",
     "immutable": "^4.0.0-rc.12"
   }
 }

@@ -4,7 +4,6 @@ import Row from './Row'
 import { Map, Set } from 'immutable'
 import Seat from './Seat'
 import Blank from './Blank'
-//import '../styles/index.scss'
 
 export class SeatPicker extends Component {
   static propTypes = {
@@ -29,15 +28,14 @@ export class SeatPicker extends Component {
       console.log(`Added seat ${number}, row ${row}, id ${id}`)
     },
     removeSeatCallback: (row, number, id) => {
-      console.log(`Removed seat ${number}, row ${row}`)
+      console.log(`Removed seat ${number}, row ${row}, id ${id}`)
     },
-    seatWidth: 25
+    seatWidth: 30
   }
 
   constructor (props) {
     super(props)
     const { rows, seatWidth, visible } = props
-    //console.log('maxima', Math.max.apply(null, rows.map(row => row.length)))
     this.state = {
       selectedSeats: Map(),
       size: 0,
