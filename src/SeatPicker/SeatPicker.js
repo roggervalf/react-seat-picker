@@ -33,12 +33,37 @@ export class SeatPicker extends Component {
     seatWidth: 30
   }
 
+  getAlreadySelectedSeats = () => {
+    let selectedSeats = Map()
+    let size = 0
+    const {
+      maxReservableSeats,
+      alpha
+    } = this.props
+    this.props.rows.forEach((row, index) => {
+      const rowNumber = alpha
+        ? String.fromCharCode('A'.charCodeAt(0) + index)
+        : (index + 1).toString()
+      row.forEach((seat) => {
+        if (seat && seat.isSelected) {
+          const seatAlreadySelected = selectedSeats.get(rowNumber, Set()).includes(seat.number)
+          if (size < maxReservableSeats && !seatAlreadySelected) {
+            selectedSeats = selectedSeats.mergeDeep({[rowNumber]: Set([seat.number])})
+            size = size + 1
+          }
+        }
+      })
+    })
+    return {selectedSeats, size}
+  }
+
   constructor (props) {
     super(props)
     const { rows, seatWidth, visible } = props
+    const {selectedSeats, size} = this.getAlreadySelectedSeats()
     this.state = {
-      selectedSeats: Map(),
-      size: 0,
+      selectedSeats: selectedSeats,
+      size: size,
       width:
         seatWidth *
         ((visible ? 1 : 0) + Math.max.apply(null, rows.map(row => row.length)))
@@ -79,25 +104,6 @@ export class SeatPicker extends Component {
     }
   }
 
-  // getAlreadySelectedSeats = (row, rowNumber) => {
-  //   const { selectedSeats, size } = this.state
-  //   const {
-  //     maxReservableSeats
-  //   } = this.props
-  //   row.forEach((seat, index) => {
-  //     if (seat && seat.isSelected) {
-  //       const seatAlreadySelected = selectedSeats.get(rowNumber, Set()).includes(seat.number)
-  //       if (size < maxReservableSeats && !seatAlreadySelected) {
-  //         this.setState(
-  //           {
-  //             selectedSeats: selectedSeats.mergeDeep({ [rowNumber]: Set([seat.number]) }),
-  //             size: size + 1
-  //           }
-  //         )
-  //       }
-  //     }
-  //   })
-  // }
   render () {
     const { width } = this.state
     return <div className='SeatPicker' style={{ width }}>{this.renderRows()}</div>
@@ -110,7 +116,6 @@ export class SeatPicker extends Component {
       const rowNumber = alpha
         ? String.fromCharCode('A'.charCodeAt(0) + index)
         : (index + 1).toString()
-      //this.getAlreadySelectedSeats(row, rowNumber)
       const isSelected = !seats.get(rowNumber, Set()).isEmpty()
       const props = {
         visible,
