@@ -79,6 +79,25 @@ export class SeatPicker extends Component {
     }
   }
 
+  // getAlreadySelectedSeats = (row, rowNumber) => {
+  //   const { selectedSeats, size } = this.state
+  //   const {
+  //     maxReservableSeats
+  //   } = this.props
+  //   row.forEach((seat, index) => {
+  //     if (seat && seat.isSelected) {
+  //       const seatAlreadySelected = selectedSeats.get(rowNumber, Set()).includes(seat.number)
+  //       if (size < maxReservableSeats && !seatAlreadySelected) {
+  //         this.setState(
+  //           {
+  //             selectedSeats: selectedSeats.mergeDeep({ [rowNumber]: Set([seat.number]) }),
+  //             size: size + 1
+  //           }
+  //         )
+  //       }
+  //     }
+  //   })
+  // }
   render () {
     const { width } = this.state
     return <div className='SeatPicker' style={{ width }}>{this.renderRows()}</div>
@@ -91,6 +110,7 @@ export class SeatPicker extends Component {
       const rowNumber = alpha
         ? String.fromCharCode('A'.charCodeAt(0) + index)
         : (index + 1).toString()
+      //this.getAlreadySelectedSeats(row, rowNumber)
       const isSelected = !seats.get(rowNumber, Set()).isEmpty()
       const props = {
         visible,

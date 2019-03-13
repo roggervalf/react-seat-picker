@@ -6,14 +6,17 @@ import RowNumber from './RowNumber'
 
 export default class Row extends Component {
   static propTypes = {
-    rowNumber: PropTypes.string //.isRequired
+    rowNumber: PropTypes.string,
+    visible: PropTypes.bool,
+    isSelected: PropTypes.bool,
+    children: PropTypes.array
   }
 
   state = {
     over: false
   }
 
-  handleMouseMove = over => {
+  handleMouseMove = (over) => {
     this.setState({ over })
   }
 
@@ -21,14 +24,13 @@ export default class Row extends Component {
     const { over } = this.state
     const { visible, rowNumber, isSelected } = this.props
     const bold = over || isSelected
-    
-    const className='Row'+
-    (isSelected?' Row--selected':' Row--enabled')
+    const className = 'Row' +
+    (isSelected ? ' Row--selected' : ' Row--enabled')
     return (
       <div
         className={className}
-        onMouseOut={this.handleMouseMove.bind(this, false)}
-        onMouseOver={this.handleMouseMove.bind(this, true)}
+        onMouseOut={() => this.handleMouseMove(false)}
+        onMouseOver={() => this.handleMouseMove(true)}
       >
         <RowNumber rowNumber={rowNumber} bold={bold} visible={visible} />
         {this.props.children}
