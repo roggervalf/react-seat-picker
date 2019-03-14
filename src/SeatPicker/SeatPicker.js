@@ -10,6 +10,7 @@ export class SeatPicker extends Component {
     addSeatCallback: PropTypes.func,
     alpha: PropTypes.bool,
     visible: PropTypes.bool,
+    selectedByDefault: PropTypes.bool,
     removeSeatCallback: PropTypes.func,
     maxReservableSeats: PropTypes.number,
     rows: PropTypes.arrayOf(
@@ -40,22 +41,25 @@ export class SeatPicker extends Component {
     let size = 0
     const {
       maxReservableSeats,
-      alpha
+      alpha,
+      selectedByDefault
     } = this.props
-    this.props.rows.forEach((row, index) => {
-      const rowNumber = alpha
-        ? String.fromCharCode('A'.charCodeAt(0) + index)
-        : (index + 1).toString()
-      row.forEach((seat) => {
-        if (seat && seat.isSelected) {
-          const seatAlreadySelected = selectedSeats.get(rowNumber, Set()).includes(seat.number)
-          if (size < maxReservableSeats && !seatAlreadySelected) {
-            selectedSeats = selectedSeats.mergeDeep({[rowNumber]: Set([seat.number])})
-            size = size + 1
+    if (selectedByDefault) {
+      this.props.rows.forEach((row, index) => {
+        const rowNumber = alpha
+          ? String.fromCharCode('A'.charCodeAt(0) + index)
+          : (index + 1).toString()
+        row.forEach((seat) => {
+          if (seat && seat.isSelected) {
+            const seatAlreadySelected = selectedSeats.get(rowNumber, Set()).includes(seat.number)
+            if (size < maxReservableSeats && !seatAlreadySelected) {
+              selectedSeats = selectedSeats.mergeDeep({[rowNumber]: Set([seat.number])})
+              size = size + 1
+            }
           }
-        }
+        })
       })
-    })
+    }
     return {selectedSeats, size}
   }
 
