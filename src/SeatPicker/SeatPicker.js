@@ -16,7 +16,8 @@ export class SeatPicker extends Component {
       PropTypes.arrayOf(
         PropTypes.shape({
           number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-          isReserved: PropTypes.bool
+          isReserved: PropTypes.bool,
+          isSelected: PropTypes.bool
         })
       )
     ).isRequired,
@@ -30,7 +31,8 @@ export class SeatPicker extends Component {
     removeSeatCallback: (row, number, id) => {
       console.log(`Removed seat ${number}, row ${row}, id ${id}`)
     },
-    seatWidth: 30
+    seatWidth: 30,
+    maxReservableSeats: 0
   }
 
   getAlreadySelectedSeats = () => {
