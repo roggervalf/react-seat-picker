@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Row from './Row'
-import { Map, Set } from 'immutable'
 import Seat from './Seat'
 import Blank from './Blank'
 
@@ -36,33 +35,6 @@ export class SeatPicker extends Component {
     maxReservableSeats: 0
   }
 
-  getAlreadySelectedSeats = () => {
-    let selectedSeats = Map()
-    let size = 0
-    const {
-      maxReservableSeats,
-      alpha,
-      selectedByDefault
-    } = this.props
-    if (selectedByDefault) {
-      this.props.rows.forEach((row, index) => {
-        const rowNumber = alpha
-          ? String.fromCharCode('A'.charCodeAt(0) + index)
-          : (index + 1).toString()
-        row.forEach((seat) => {
-          if (seat && seat.isSelected) {
-            const seatAlreadySelected = selectedSeats.get(rowNumber, Set()).includes(seat.number)
-            if (size < maxReservableSeats && !seatAlreadySelected) {
-              selectedSeats = selectedSeats.mergeDeep({[rowNumber]: Set([seat.number])})
-              size = size + 1
-            }
-          }
-        })
-      })
-    }
-    return {selectedSeats, size}
-  }
-
   constructor (props) {
     super(props)
     const { rows, seatWidth, visible } = props
@@ -80,29 +52,87 @@ export class SeatPicker extends Component {
     return nextState.selectedSeats !== this.state.selectedSeats
   }
 
+  getAlreadySelectedSeats = () => {
+    let selectedSeats = {}
+    let size = 0
+    const {
+      maxReservableSeats,
+      alpha,
+      selectedByDefault
+    } = this.props
+    if (selectedByDefault) {
+      this.props.rows.forEach((row, index) => {
+        const rowNumber = alpha
+          ? String.fromCharCode('A'.charCodeAt(0) + index)
+          : (index + 1).toString()
+        row.forEach((seat,index) => {
+          if (seat && seat.isSelected) {
+            const seatAlreadySelected = this.includeSeat(selectedSeats,rowNumber,seat.number)
+            if (size < maxReservableSeats && !seatAlreadySelected) {
+              selectedSeats = this.addSeat(selectedSeats,rowNumber,seat.number)
+              size = size + 1
+            }
+          }
+        })
+      })
+    }
+    return {selectedSeats, size}
+  }
+
+  includeSeat=(selectedSeats,row,number)=>{
+    if(selectedSeats[row])
+      return selectedSeats[row].includes(number)
+    return false
+  }
+
+  addSeat=(selectedSeats,row,number)=>{
+    if(selectedSeats[row]){
+      if(!selectedSeats[row].includes(number)){
+        selectedSeats[row].push(number)
+      }
+    }else{
+      selectedSeats[row]=[]
+      selectedSeats[row].push(number)
+    }
+    return {...selectedSeats}
+  }
+
+  deleteSeat=(row,number)=>{
+    let { selectedSeats } = this.state
+    if(selectedSeats[row]){
+      selectedSeats[row]= selectedSeats[row].filter((value)=>{
+        return value !== number;
+    })
+    if(!selectedSeats[row].length>0){
+      delete(selectedSeats[row])
+    }
+    }
+    return {...selectedSeats}
+  }
+
   selectSeat = (row, number, id) => {
-    const { selectedSeats, size } = this.state
+    let { selectedSeats } = this.state
+    const size=this.state.size
     const {
       maxReservableSeats,
       addSeatCallback,
       removeSeatCallback
     } = this.props
-    const seatAlreadySelected = selectedSeats.get(row, Set()).includes(number)
+    const seatAlreadySelected = this.includeSeat(selectedSeats,row,number)
 
     if (size < maxReservableSeats && !seatAlreadySelected) {
       this.setState(
         {
-          selectedSeats: selectedSeats.mergeDeep({ [row]: Set([number]) }),
+          selectedSeats: this.addSeat(selectedSeats,row,number),
           size: size + 1
         },
         () => addSeatCallback(row, number, id)
       )
-    } else if (selectedSeats.has(row) && seatAlreadySelected) {
+    } else if (selectedSeats[row] && seatAlreadySelected) {
+
       this.setState(
         {
-          selectedSeats: selectedSeats.update(row, seats =>
-            seats.delete(number)
-          ),
+          selectedSeats: this.deleteSeat(row,number),
           size: size - 1
         },
         () => removeSeatCallback(row, number, id)
@@ -122,7 +152,7 @@ export class SeatPicker extends Component {
       const rowNumber = alpha
         ? String.fromCharCode('A'.charCodeAt(0) + index)
         : (index + 1).toString()
-      const isSelected = !seats.get(rowNumber, Set()).isEmpty()
+      const isSelected = !!seats[rowNumber]
       const props = {
         visible,
         rowNumber,
@@ -145,7 +175,7 @@ export class SeatPicker extends Component {
     return seats.map((seat, index) => {
       if (seat === null) return <Blank key={index} />
       const isSelected =
-        isRowSelected && selectedSeats.get(rowNumber).includes(seat.number)
+        isRowSelected && this.includeSeat(selectedSeats,rowNumber,seat.number)
       const props = {
         isSelected,
         orientation: seat.orientation,

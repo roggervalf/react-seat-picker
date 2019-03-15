@@ -6,7 +6,7 @@ export default class Seat extends Component {
     isSelected: PropTypes.bool,
     isReserved: PropTypes.bool,
     isEnabled: PropTypes.bool,
-    orientation: PropTypes.string,
+    orientation: PropTypes.oneOf(['north', 'south', 'east', 'west' ]),
     seatNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     selectSeat: PropTypes.func.isRequired
   }
