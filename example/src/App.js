@@ -14,7 +14,7 @@ export default class App extends Component {
     return (
       <div>
         <h1>Seat Picker</h1>
-        <SeatPicker className='SeatPicker' rows={rows} maxReservableSeats={3} alpha visible selectedByDefault />
+        <SeatPicker rows={rows} maxReservableSeats={3} alpha visible selectedByDefault />
       </div>
     )
   }
