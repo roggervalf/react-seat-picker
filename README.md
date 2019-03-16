@@ -50,29 +50,25 @@ class Example extends Component {
 
 Name | Type | Default | Required|Description
 ---- | ----- | ------- | ------ | -----------
-`alpha` | boolean | false | false | Enumerate your rows using letters (`true`), otherwise using numbers (`false`).
-`visible` | boolean | false | false | Shows the row numbers (`true`), otherwise they are hidden (`false`).
-`selectedByDefault` | boolean | false | false | Allow to have already selected seats (`true`), otherwise (`false`) they aren´t going to be checked by their isSelected property.
-`maxReservableSeats` | number | 0 | false | Limits the number of selectable seats.
-`seatWidth` | number | 30 | false | Should be customized as you need.
-`addSeatCallback` | function | (row, number, id) => {
-      console.log(`Added seat ${number}, row ${row}, id ${id}`)
-    } | false | Should be customized as you need.
-`removeSeatCallback` | function | (row, number, id) => {
-      console.log(`Removed seat ${number}, row ${row}, id ${id}`)
-    } | false | Should be customized as you need.
-`rows` | array | - | true | Array of arrays of json. (See next section).
+`alpha` | boolean | `false` | `false` | Enumerate your rows using letters (`true`), otherwise using numbers (`false`).
+`visible` | boolean | `false` | `false` | Shows the row numbers (`true`), otherwise they are hidden (`false`).
+`selectedByDefault` | boolean | `false` | `false` | Allow to have already selected seats (`true`), otherwise (`false`) they aren´t going to be checked by their isSelected property.
+`maxReservableSeats` | number | 0 | `false` | Limits the number of selectable seats.
+`seatWidth` | number | 30 | `false` | Should be customized as you need.
+`addSeatCallback` | function | (row, number, id) => {console.log( `Added seat ${number}, row ${row}, id ${id}`)} | `false` | Should be customized as you need.
+`removeSeatCallback` | function | (row, number, id) => {console.log( `Removed seat ${number}, row ${row}, id ${id}`)} | `false` | Should be customized as you need.
+`rows` | array | - | `true` | Array of arrays of json. (See next section).
 
 ### Seats properties
 
-Each json in rows prop could have these properties.
+Each json in rows prop could be `null` (empty seat) or has these properties.
 
 Name | Type | Default | Required|Description
 ---- | ----- | ------- | ------ | -----------
-`number` | number or string | undefined | false | It will be showed inside seat.
-`isSelected` | boolean | false | false | It will be checked in case selectedByDefault is true.
-`isReserved` | boolean | false | false | Disable the option of click it.
-`orientation` | string | north | false | Define the position of an specific seat.
+`number` | number or string | undefined | `false` | It will be showed inside seat.
+`isSelected` | boolean | `false` | `false` | It will be checked in case selectedByDefault is true.
+`isReserved` | boolean | `false` | `false` | Disable the option of click it.
+`orientation` | string | north | `false` | Define the position of an specific seat.
 
 ## License
 
