@@ -48,6 +48,30 @@ export class SeatPicker extends Component {
     }
   }
 
+  static getDerivedStateFromProps (props, state) {
+    if (props.maxReservableSeats < state.size) {
+      let sum = 0
+      let selectedSeats = {}
+      for (let array in state.selectedSeats) {
+        if (
+          sum + state.selectedSeats[array].length <
+          props.maxReservableSeats
+        ) {
+          selectedSeats[array] = state.selectedSeats[array].slice(0)
+        } else {
+          const dif = props.maxReservableSeats - sum
+          selectedSeats[array] = state.selectedSeats[array].slice(0, dif)
+          return {
+            selectedSeats: selectedSeats,
+            size: props.maxReservableSeats
+          }
+        }
+        sum = sum + state.selectedSeats[array].length
+      }
+    }
+    return null
+  }
+
   shouldComponentUpdate (nextProps, nextState) {
     return nextState.selectedSeats !== this.state.selectedSeats
   }
