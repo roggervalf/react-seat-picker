@@ -6,13 +6,13 @@
 
 ## Demo
 
-This is the [Demo Page](https://rogger794.github.io/react-seat-picker/).
+<!-- This is the [Demo Page](https://rogger794.github.io/react-seat-picker/). -->
 
 [![Edit SeatPicker](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nwk09p7o34?fontsize=14)
 
 ## About
 
-This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap).
+This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap) whithout dependencies and some extra properties.
 
 ## Install
 
