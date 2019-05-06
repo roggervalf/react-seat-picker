@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-//import Seat from './Seat'
-//import Blank from './Blank'
 import RowNumber from './RowNumber'
 
 export default class Row extends Component {
@@ -12,27 +10,13 @@ export default class Row extends Component {
     children: PropTypes.array
   }
 
-  state = {
-    over: false
-  }
-
-  handleMouseMove = (over) => {
-    this.setState({ over })
-  }
-
   render () {
-    const { over } = this.state
     const { visible, rowNumber, isSelected } = this.props
-    const bold = over || isSelected
-    const className = 'Row' +
-    (isSelected ? ' Row--selected' : ' Row--enabled')
+    const className = 'seat-picker__row' +
+    (isSelected ? ' seat-picker__row--selected' : ' seat-picker__row--enabled')
     return (
-      <div
-        className={className}
-        onMouseOut={() => this.handleMouseMove(false)}
-        onMouseOver={() => this.handleMouseMove(true)}
-      >
-        <RowNumber rowNumber={rowNumber} bold={bold} visible={visible} />
+      <div className={className}>
+        <RowNumber rowNumber={rowNumber} visible={visible} />
         {this.props.children}
       </div>
     )

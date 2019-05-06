@@ -1,0 +1,48 @@
+.seat {
+  background-color: $color-primary;
+  height: 28px;
+  width: 28px;
+  color: $color-seat-number;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__number{
+    font-size: 10px
+  }
+
+  &--north{
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+  }
+
+  &--south {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &--east {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
+  &--west {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+
+  &--enabled {
+    cursor: pointer;
+    &:hover { background-color: $color-secondary; }
+  }
+
+  &--selected {
+    cursor: pointer;
+    background-color: $color-tertiary;
+  }
+
+  &--reserved {
+    cursor: not-allowed;
+    background-color: $color-seat-reserved;
+  }
+}

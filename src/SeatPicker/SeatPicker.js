@@ -20,8 +20,7 @@ export class SeatPicker extends Component {
           isSelected: PropTypes.bool
         })
       )
-    ).isRequired,
-    seatWidth: PropTypes.number
+    ).isRequired
   }
 
   static defaultProps = {
@@ -31,20 +30,17 @@ export class SeatPicker extends Component {
     removeSeatCallback: (row, number, id) => {
       console.log(`Removed seat ${number}, row ${row}, id ${id}`)
     },
-    seatWidth: 30,
     maxReservableSeats: 0
   }
 
   constructor (props) {
     super(props)
-    const { rows, seatWidth, visible } = props
+    const { rows } = props
     const {selectedSeats, size} = this.getAlreadySelectedSeats()
     this.state = {
       selectedSeats: selectedSeats,
       size: size,
-      width:
-        seatWidth *
-        ((visible ? 1 : 0) + Math.max.apply(null, rows.map(row => row.length)))
+      rowLength: (Math.max.apply(null, rows.map(row => row.length)))
     }
   }
 
@@ -89,11 +85,11 @@ export class SeatPicker extends Component {
         const rowNumber = alpha
           ? String.fromCharCode('A'.charCodeAt(0) + index)
           : (index + 1).toString()
-        row.forEach((seat,index) => {
+        row.forEach((seat, index) => {
           if (seat && seat.isSelected) {
-            const seatAlreadySelected = this.includeSeat(selectedSeats,rowNumber,seat.number)
+            const seatAlreadySelected = this.includeSeat(selectedSeats, rowNumber, seat.number)
             if (size < maxReservableSeats && !seatAlreadySelected) {
-              selectedSeats = this.addSeat(selectedSeats,rowNumber,seat.number)
+              selectedSeats = this.addSeat(selectedSeats, rowNumber, seat.number)
               size = size + 1
             }
           }
@@ -104,15 +100,15 @@ export class SeatPicker extends Component {
   }
 
   includeSeat=(selectedSeats, row, number) => {
-    if (selectedSeats[row]){
+    if (selectedSeats[row]) {
       return selectedSeats[row].includes(number)
     }
     return false
   }
 
   addSeat=(selectedSeats, row, number) => {
-    if (selectedSeats[row]){
-      if (!selectedSeats[row].includes(number)){
+    if (selectedSeats[row]) {
+      if (!selectedSeats[row].includes(number)) {
         selectedSeats[row].push(number)
       }
     } else {
@@ -124,7 +120,7 @@ export class SeatPicker extends Component {
 
   deleteSeat=(row, number) => {
     let { selectedSeats } = this.state
-    if (selectedSeats[row]){
+    if (selectedSeats[row]) {
       selectedSeats[row] = selectedSeats[row].filter((value) => {
         return value !== number
       })
@@ -154,7 +150,6 @@ export class SeatPicker extends Component {
         () => addSeatCallback(row, number, id)
       )
     } else if (selectedSeats[row] && seatAlreadySelected) {
-
       this.setState(
         {
           selectedSeats: this.deleteSeat(row, number),
@@ -166,8 +161,7 @@ export class SeatPicker extends Component {
   }
 
   render () {
-    const { width } = this.state
-    return <div className='SeatPicker' style={{ width }}>{this.renderRows()}</div>
+    return <div className='seat-picker' >{this.renderRows()}</div>
   }
 
   renderRows () {
@@ -189,15 +183,16 @@ export class SeatPicker extends Component {
       }
 
       return (
-        <Row {...props}>{this.renderSeats(row, rowNumber, isSelected)}</Row>
+        <Row key={index} {...props}>{this.renderSeats(row, rowNumber, isSelected)} </Row>
       )
     })
   }
 
   renderSeats (seats, rowNumber, isRowSelected) {
-    const { selectedSeats, size } = this.state
+    const { selectedSeats, size, rowLength } = this.state
     const { maxReservableSeats } = this.props
-    return seats.map((seat, index) => {
+    const blanks = new Array((rowLength - seats.length) > 0 ? (rowLength - seats.length) : 0).fill(0)
+    let row = seats.map((seat, index) => {
       if (seat === null) return <Blank key={index} />
       const isSelected =
         isRowSelected && this.includeSeat(selectedSeats, rowNumber, seat.number)
@@ -212,5 +207,11 @@ export class SeatPicker extends Component {
       }
       return <Seat {...props} />
     })
+    if (blanks.length > 0) {
+      blanks.forEach((blank, index) => {
+        row.push(<Blank key={row.length + index + 1} />)
+      })
+    }
+    return row
   }
 }

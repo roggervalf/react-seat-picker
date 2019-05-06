@@ -56,7 +56,6 @@ Name | Type | Default | Required|Description
 `visible` | boolean | `false` | `false` | Shows the row numbers (`true`), otherwise they are hidden (`false`).
 `selectedByDefault` | boolean | `false` | `false` | Allow to have already selected seats (`true`), otherwise (`false`) they aren´t going to be checked by their isSelected property.
 `maxReservableSeats` | number | 0 | `false` | Limits the number of selectable seats.
-`seatWidth` | number | 30 | `false` | Should be customized as you need.
 `addSeatCallback` | function | (row, number, id) => {console.log( `Added seat ${number}, row ${row}, id ${id}`)} | `false` | Should be customized as you need.
 `removeSeatCallback` | function | (row, number, id) => {console.log( `Removed seat ${number}, row ${row}, id ${id}`)} | `false` | Should be customized as you need.
 `rows` | array | - | `true` | Array of arrays of json. (See next section).
