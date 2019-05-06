@@ -1,11 +1,25 @@
 .seat {
-  background-color: $color-primary;
+  // background-color: $color-primary;
   height: 28px;
   width: 28px;
   color: $color-seat-number;
-  display: flex;
+  display: inline-block;
   justify-content: center;
-  align-items: center;
+  align-items: center;  
+
+  // Older browsers
+  // background-image: url(../src/icons/chevron-thin-right.svg);
+  // background-size: cover;
+
+  // Newer browsers - masks
+//  @supports (-webkit-mask-image: url()) or (mask-image: url()){
+    background-color: $color-primary;
+    -webkit-mask-image: url(~/img/chevron-thin-right.svg);
+    -webkit-mask-size: cover;
+    mask-image: url(~/img/chevron-thin-right.svg);
+    mask-size: cover;
+    background-image: none;
+  //}
 
   &__number{
     font-size: 10px
@@ -32,8 +46,8 @@
   }
 
   &--enabled {
-    cursor: pointer;
-    &:hover { background-color: $color-secondary; }
+    // cursor: pointer;
+    // &:hover { background-color: $color-secondary; }
   }
 
   &--selected {
