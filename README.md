@@ -69,7 +69,7 @@ Name | Type | Default | Required|Description
 `number` | number or string | undefined | `false` | It will be showed inside seat.
 `isSelected` | boolean | `false` | `false` | It will be checked in case selectedByDefault is true.
 `isReserved` | boolean | `false` | `false` | Disable the option of click it.
-`orientation` | string | north | `false` | Define the position of an specific seat.
+`orientation` | string | north | `false` | Define the position of an specific seat (north, south, east, west).
 
 ## License
 
