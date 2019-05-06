@@ -6,7 +6,7 @@ export default class Seat extends Component {
     isSelected: PropTypes.bool,
     isReserved: PropTypes.bool,
     isEnabled: PropTypes.bool,
-    orientation: PropTypes.oneOf(['north', 'south', 'east', 'west' ]),
+    orientation: PropTypes.oneOf([ 'north', 'south', 'east', 'west' ]),
     seatNumber: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     selectSeat: PropTypes.func.isRequired
   }
@@ -21,14 +21,14 @@ export default class Seat extends Component {
 
   render () {
     const { isSelected, isEnabled, isReserved, orientation } = this.props
-    const className = 'Seat' +
-        (isSelected ? ' Seat--selected' : '') +
-        (!isSelected && isEnabled && !isReserved ? ' Seat--enabled' : '') +
-        (isReserved ? ' Seat--reserved' : '') +
-        (` Seat--${orientation ? orientation : 'north'}`)
+    const className = 'seat' +
+        (isSelected ? ' seat--selected' : '') +
+        (!isSelected && isEnabled && !isReserved ? ' seat--enabled' : '') +
+        (isReserved ? ' seat--reserved' : '') +
+        (` seat--${!orientation ? 'north' : orientation}`)
     return (
       <div className={className} onClick={this.handleClick}>
-        <span className='SeatNumber'>{this.props.seatNumber}</span>
+        <span className='seat__number'>{this.props.seatNumber}</span>
       </div>
     )
   }

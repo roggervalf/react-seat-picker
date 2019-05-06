@@ -4,7 +4,3 @@ body {
   font-family: sans-serif;
   background: white;
 }
-
-.Seat--enabled:hover {
-  background-color: red;
-}
