@@ -24,11 +24,13 @@ export class SeatPicker extends Component {
   }
 
   static defaultProps = {
-    addSeatCallback: (row, number, id) => {
+    addSeatCallback: (row, number, id, cb) => {
       console.log(`Added seat ${number}, row ${row}, id ${id}`)
+      cb(row,number)
     },
-    removeSeatCallback: (row, number, id) => {
+    removeSeatCallback: (row, number, id,cb) => {
       console.log(`Removed seat ${number}, row ${row}, id ${id}`)
+      cb(row,number)
     },
     maxReservableSeats: 0
   }
@@ -69,7 +71,7 @@ export class SeatPicker extends Component {
   }
 
   shouldComponentUpdate (nextProps, nextState) {
-    return nextState.selectedSeats !== this.state.selectedSeats
+    return nextState.selectedSeats !== this.state.selectedSeats || this.props.loading!==nextProps.loading
   }
 
   getAlreadySelectedSeats = () => {
@@ -131,6 +133,29 @@ export class SeatPicker extends Component {
     return {...selectedSeats}
   }
 
+  acceptSelection= (row, number) => {
+    let { selectedSeats } = this.state
+    const size = this.state.size
+    
+    this.setState(
+      {
+        selectedSeats: this.addSeat(selectedSeats, row, number),
+        size: size + 1
+      }
+    )
+  }
+
+  acceptDeselection= (row, number) => {
+    const size = this.state.size
+    
+    this.setState(
+      {
+        selectedSeats: this.deleteSeat(row, number),
+        size: size - 1
+      }
+    )
+  }
+
   selectSeat = (row, number, id) => {
     let { selectedSeats } = this.state
     const size = this.state.size
@@ -142,26 +167,19 @@ export class SeatPicker extends Component {
     const seatAlreadySelected = this.includeSeat(selectedSeats, row, number)
 
     if (size < maxReservableSeats && !seatAlreadySelected) {
-      this.setState(
-        {
-          selectedSeats: this.addSeat(selectedSeats, row, number),
-          size: size + 1
-        },
-        () => addSeatCallback(row, number, id)
-      )
+      addSeatCallback(row, number, id,this.acceptSelection)
     } else if (selectedSeats[row] && seatAlreadySelected) {
-      this.setState(
-        {
-          selectedSeats: this.deleteSeat(row, number),
-          size: size - 1
-        },
-        () => removeSeatCallback(row, number, id)
-      )
+      removeSeatCallback(row, number, id, this.acceptDeselection)
     }
   }
 
   render () {
-    return <div className='seat-picker' >{this.renderRows()}</div>
+    return<div className='seat-content'>
+            <div className={this.props.loading?'loader':null}></div> 
+            <div className='seat-picker'>
+              {this.renderRows()}
+            </div>
+          </div>
   }
 
   renderRows () {
