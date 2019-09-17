@@ -209,9 +209,6 @@ export class SeatPicker extends Component {
       if (tooltipOverrides[rowNumber] && tooltipOverrides[rowNumber][seat.number] != null) {
         tooltip = tooltipOverrides[rowNumber][seat.number]
       }
-      if (rowNumber === 'A') {
-        console.log(tooltip)
-      }
       const props = {
         isSelected,
         orientation: seat.orientation,
