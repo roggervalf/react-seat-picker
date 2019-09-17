@@ -4,7 +4,7 @@
   "description": "A React component to select seats.",
   "author": "Rogger794",
   "license": "MIT",
-  "repository": "Rogger794/react-seat-picker",
+  "repository": "matnad/react-seat-picker",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

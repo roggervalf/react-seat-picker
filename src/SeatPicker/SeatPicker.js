@@ -22,6 +22,7 @@ export class SeatPicker extends Component {
     const {rows} = props
     const {selectedSeats, size} = this.getAlreadySelectedSeats()
     this.state = {
+      tooltipOverrides: {},
       selectedSeats: selectedSeats,
       size: size,
       rowLength: (Math.max.apply(null, rows.map(row => row.length)))
@@ -116,23 +117,31 @@ export class SeatPicker extends Component {
     return {...selectedSeats}
   }
 
-  acceptSelection = (row, number) => {
-    let {selectedSeats} = this.state
-    const size = this.state.size
+  addTooltip = (tooltipOverrides, row, number, tooltip) => {
+    if (!tooltipOverrides[row]) {
+      tooltipOverrides[row] = {}
+    }
+    tooltipOverrides[row][number] = tooltip
+    return {...tooltipOverrides}
+  }
 
+  acceptSelection = (row, number, tooltip) => {
+    let {selectedSeats, tooltipOverrides} = this.state
+    const size = this.state.size
     this.setState(
       {
+        tooltipOverrides: this.addTooltip(tooltipOverrides, row, number, tooltip),
         selectedSeats: this.addSeat(selectedSeats, row, number),
         size: size + 1
       }
     )
   }
 
-  acceptDeselection = (row, number) => {
-    const size = this.state.size
-
+  acceptDeselection = (row, number, tooltip) => {
+    const {size, tooltipOverrides} = this.state
     this.setState(
       {
+        tooltipOverrides: this.addTooltip(tooltipOverrides, row, number, tooltip),
         selectedSeats: this.deleteSeat(row, number),
         size: size - 1
       }
@@ -190,18 +199,22 @@ export class SeatPicker extends Component {
   }
 
   renderSeats(seats, rowNumber, isRowSelected) {
-    const {selectedSeats, size, rowLength} = this.state
+    const {selectedSeats, size, rowLength, tooltipOverrides} = this.state
     const {maxReservableSeats} = this.props
     const blanks = new Array((rowLength - seats.length) > 0 ? (rowLength - seats.length) : 0).fill(0)
     let row = seats.map((seat, index) => {
       if (seat === null) return <Blank key={index}/>
       const isSelected =
         isRowSelected && this.includeSeat(selectedSeats, rowNumber, seat.number)
+      let tooltip = seat.tooltip
+      if (tooltipOverrides[rowNumber] && tooltipOverrides[rowNumber][seat.number] !== null) {
+        tooltip = tooltipOverrides[rowNumber][seat.number]
+      }
       const props = {
         isSelected,
         orientation: seat.orientation,
         isReserved: seat.isReserved,
-        tooltip: seat.tooltip,
+        tooltip,
         isEnabled: size < maxReservableSeats,
         selectSeat: this.selectSeat.bind(this, rowNumber, seat.number, seat.id),
         seatNumber: seat.number,
@@ -236,5 +249,6 @@ SeatPicker.propTypes = {
       })
     )
   ).isRequired,
-  tooltipProps: PropTypes.object
+  tooltipProps: PropTypes.object,
+  loading: PropTypes.bool
 }
