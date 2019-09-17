@@ -33,7 +33,6 @@ export class SeatPicker extends Component {
     if (props.maxReservableSeats < state.size) {
       let sum = 0
       let selectedSeats = {}
-      // eslint-disable-next-line no-unused-vars
       for (let array in state.selectedSeats) {
         if (
           sum + state.selectedSeats[array].length <
@@ -167,7 +166,7 @@ export class SeatPicker extends Component {
 
   render() {
     return <div className='seat-content'>
-      <div className={this.props.loading ? 'loader' : null}></div>
+      <div className={this.props.loading ? 'loader' : null} />
       <div className='seat-picker'>
         {this.renderRows()}
       </div>
@@ -203,12 +202,15 @@ export class SeatPicker extends Component {
     const {maxReservableSeats} = this.props
     const blanks = new Array((rowLength - seats.length) > 0 ? (rowLength - seats.length) : 0).fill(0)
     let row = seats.map((seat, index) => {
-      if (seat === null) return <Blank key={index}/>
+      if (seat === null) return <Blank key={index} />
       const isSelected =
         isRowSelected && this.includeSeat(selectedSeats, rowNumber, seat.number)
       let tooltip = seat.tooltip
-      if (tooltipOverrides[rowNumber] && tooltipOverrides[rowNumber][seat.number] !== null) {
+      if (tooltipOverrides[rowNumber] && tooltipOverrides[rowNumber][seat.number] != null) {
         tooltip = tooltipOverrides[rowNumber][seat.number]
+      }
+      if (rowNumber === 'A') {
+        console.log(tooltip)
       }
       const props = {
         isSelected,
@@ -225,7 +227,7 @@ export class SeatPicker extends Component {
     })
     if (blanks.length > 0) {
       blanks.forEach((blank, index) => {
-        row.push(<Blank key={row.length + index + 1}/>)
+        row.push(<Blank key={row.length + index + 1} />)
       })
     }
     return row
