@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ReactTooltip from 'react-tooltip'
 
@@ -12,7 +12,7 @@ export default class Seat extends Component {
   }
 
   render() {
-    const {isSelected, tooltip, isEnabled, isReserved, orientation} = this.props
+    const { isSelected, tooltip, isEnabled, isReserved, orientation } = this.props
     const className = 'seat' +
       (isSelected ? ' seat--selected' : '') +
       (!isSelected && isEnabled && !isReserved ? ' seat--enabled' : '') +
