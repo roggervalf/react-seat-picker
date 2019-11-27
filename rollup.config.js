@@ -37,12 +37,11 @@ export default {
       ],
       modules: true
     }),
-    sass({insert: true}),
+    sass({ insert: true }),
     url(),
     svgr(),
     babel({
-      exclude: 'node_modules/**',
-      plugins: [ 'external-helpers' ]
+      exclude: 'node_modules/**'
     }),
     resolve(),
     commonjs()

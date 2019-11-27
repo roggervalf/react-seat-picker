@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Row from './Row'
 import Seat from './Seat'
@@ -19,8 +19,8 @@ export class SeatPicker extends Component {
 
   constructor(props) {
     super(props)
-    const {rows} = props
-    const {selectedSeats, size} = this.getAlreadySelectedSeats()
+    const { rows } = props
+    const { selectedSeats, size } = this.getAlreadySelectedSeats()
     this.state = {
       tooltipOverrides: {},
       selectedSeats: selectedSeats,
@@ -32,8 +32,8 @@ export class SeatPicker extends Component {
   static getDerivedStateFromProps(props, state) {
     if (props.maxReservableSeats < state.size) {
       let sum = 0
-      let selectedSeats = {}
-      for (let array in state.selectedSeats) {
+      const selectedSeats = {}
+      for (const array in state.selectedSeats) {
         if (
           sum + state.selectedSeats[array].length <
           props.maxReservableSeats
@@ -81,7 +81,7 @@ export class SeatPicker extends Component {
         })
       })
     }
-    return {selectedSeats, size}
+    return { selectedSeats, size }
   }
 
   includeSeat = (selectedSeats, row, number) => {
@@ -100,11 +100,11 @@ export class SeatPicker extends Component {
       selectedSeats[row] = []
       selectedSeats[row].push(number)
     }
-    return {...selectedSeats}
+    return { ...selectedSeats }
   }
 
   deleteSeat = (row, number) => {
-    let {selectedSeats} = this.state
+    const { selectedSeats } = this.state
     if (selectedSeats[row]) {
       selectedSeats[row] = selectedSeats[row].filter((value) => {
         return value !== number
@@ -113,7 +113,7 @@ export class SeatPicker extends Component {
         delete (selectedSeats[row])
       }
     }
-    return {...selectedSeats}
+    return { ...selectedSeats }
   }
 
   addTooltip = (tooltipOverrides, row, number, tooltip) => {
@@ -121,11 +121,11 @@ export class SeatPicker extends Component {
       tooltipOverrides[row] = {}
     }
     tooltipOverrides[row][number] = tooltip
-    return {...tooltipOverrides}
+    return { ...tooltipOverrides }
   }
 
   acceptSelection = (row, number, tooltip) => {
-    let {selectedSeats, tooltipOverrides} = this.state
+    const { selectedSeats, tooltipOverrides } = this.state
     const size = this.state.size
     this.setState(
       {
@@ -137,7 +137,7 @@ export class SeatPicker extends Component {
   }
 
   acceptDeselection = (row, number, tooltip) => {
-    const {size, tooltipOverrides} = this.state
+    const { size, tooltipOverrides } = this.state
     this.setState(
       {
         tooltipOverrides: this.addTooltip(tooltipOverrides, row, number, tooltip),
@@ -148,7 +148,7 @@ export class SeatPicker extends Component {
   }
 
   selectSeat = (row, number, id) => {
-    let {selectedSeats} = this.state
+    const { selectedSeats } = this.state
     const size = this.state.size
     const {
       maxReservableSeats,
@@ -165,17 +165,19 @@ export class SeatPicker extends Component {
   }
 
   render() {
-    return <div className='seat-content'>
-      <div className={this.props.loading ? 'loader' : null} />
-      <div className='seat-picker'>
-        {this.renderRows()}
+    return (
+      <div className='seat-content'>
+        <div className={this.props.loading ? 'loader' : null} />
+        <div className='seat-picker'>
+          {this.renderRows()}
+        </div>
       </div>
-    </div>
+    )
   }
 
   renderRows() {
-    const {selectedSeats: seats} = this.state
-    const {alpha, visible} = this.props
+    const { selectedSeats: seats } = this.state
+    const { alpha, visible } = this.props
     return this.props.rows.map((row, index) => {
       const rowNumber = alpha
         ? String.fromCharCode('A'.charCodeAt(0) + index)
@@ -198,10 +200,10 @@ export class SeatPicker extends Component {
   }
 
   renderSeats(seats, rowNumber, isRowSelected) {
-    const {selectedSeats, size, rowLength, tooltipOverrides} = this.state
-    const {maxReservableSeats} = this.props
+    const { selectedSeats, size, rowLength, tooltipOverrides } = this.state
+    const { maxReservableSeats } = this.props
     const blanks = new Array((rowLength - seats.length) > 0 ? (rowLength - seats.length) : 0).fill(0)
-    let row = seats.map((seat, index) => {
+    const row = seats.map((seat, index) => {
       if (seat === null) return <Blank key={index} />
       const isSelected =
         isRowSelected && this.includeSeat(selectedSeats, rowNumber, seat.number)
@@ -217,10 +219,9 @@ export class SeatPicker extends Component {
         isEnabled: size < maxReservableSeats,
         selectSeat: this.selectSeat.bind(this, rowNumber, seat.number, seat.id),
         seatNumber: seat.number,
-        key: index,
         tooltipProps: this.props.tooltipProps
       }
-      return <Seat {...props} />
+      return <Seat key={index} {...props} />
     })
     if (blanks.length > 0) {
       blanks.forEach((blank, index) => {
