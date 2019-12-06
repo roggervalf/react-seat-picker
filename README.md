@@ -1,6 +1,6 @@
 # react-seat-picker
 
-> 
+> Component to pick seats
 
 [![NPM](https://img.shields.io/npm/v/react-seat-picker.svg)](https://www.npmjs.com/package/react-seat-picker) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
@@ -92,7 +92,7 @@ export default class App extends Component {
     return (
       <div>
         <h1>Seat Picker</h1>
-        <div style={{marginTop: '200px'}}>
+        <div style={{marginTop: '100px'}}>
           <SeatPicker
             addSeatCallback={this.addSeatCallback}
             removeSeatCallback={this.removeSeatCallback}
@@ -106,7 +106,7 @@ export default class App extends Component {
           />
         </div>
         <h1>Seat Picker Continuous Case</h1>
-        <div style={{ marginTop: '200px' }}>
+        <div style={{ marginTop: '100px' }}>
           <SeatPicker
             addSeatCallback={this.addSeatCallback}
             removeSeatCallback={this.removeSeatCallback}

@@ -1,17 +1,15 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class RowNumber extends Component {
   static propTypes = {
     rowNumber: PropTypes.string,
-    visible: PropTypes.bool
-  }
+    visible: PropTypes.bool,
+  };
 
-  render () {
+  render() {
     return this.props.visible ? (
-      <div className='seat-picker__row__number'>
-        {this.props.rowNumber}
-      </div>
-    ) : null
+      <div className="seat-picker__row__number">{this.props.rowNumber}</div>
+    ) : null;
   }
 }
