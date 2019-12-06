@@ -1,4 +1,4 @@
-import './styles/index.scss'
-import { SeatPicker } from './SeatPicker/SeatPicker'
+import "./styles/index.scss";
+import { SeatPicker } from "./SeatPicker/SeatPicker";
 
-export default SeatPicker
+export default SeatPicker;
