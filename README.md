@@ -108,7 +108,7 @@ export default class App extends Component {
         <h1>Seat Picker Continuous Case</h1>
         <div style={{ marginTop: '100px' }}>
           <SeatPicker
-            addSeatCallback={this.addSeatCallback}
+            addSeatCallback={this.addSeatCallbackContinousCase}
             removeSeatCallback={this.removeSeatCallback}
             rows={rows}
             maxReservableSeats={3}
