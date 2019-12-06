@@ -6,13 +6,13 @@ import Blank from './Blank'
 
 export class SeatPicker extends Component {
   static defaultProps = {
-    addSeatCallback: (row, number, id, cb) => {
+    addSeatCallback: ({row, number, id}, addCb) => {
       console.log(`Added seat ${number}, row ${row}, id ${id}`)
-      cb(row, number)
+      addCb(row, number, id)
     },
-    removeSeatCallback: (row, number, id, cb) => {
+    removeSeatCallback: ({row, number, id}, removeCb) => {
       console.log(`Removed seat ${number}, row ${row}, id ${id}`)
-      cb(row, number)
+      removeCb(row, number)
     },
     maxReservableSeats: 0
   }
@@ -74,7 +74,7 @@ export class SeatPicker extends Component {
           if (seat && seat.isSelected) {
             const seatAlreadySelected = this.includeSeat(selectedSeats, rowNumber, seat.number)
             if (size < maxReservableSeats && !seatAlreadySelected) {
-              selectedSeats = this.addSeat(selectedSeats, rowNumber, seat.number)
+              selectedSeats = this.addSeat(selectedSeats, rowNumber, seat.number, seat.id)
               size = size + 1
             }
           }
@@ -86,19 +86,19 @@ export class SeatPicker extends Component {
 
   includeSeat = (selectedSeats, row, number) => {
     if (selectedSeats[row]) {
-      return selectedSeats[row].includes(number)
+      return !!selectedSeats[row][number]
     }
     return false
   }
 
-  addSeat = (selectedSeats, row, number) => {
+  addSeat = (selectedSeats, row, number, id) => {
     if (selectedSeats[row]) {
-      if (!selectedSeats[row].includes(number)) {
-        selectedSeats[row].push(number)
+      if (!selectedSeats[row][number]) {
+        selectedSeats[row][number] = id
       }
     } else {
-      selectedSeats[row] = []
-      selectedSeats[row].push(number)
+      selectedSeats[row] = {}
+      selectedSeats[row][number] = id
     }
     return { ...selectedSeats }
   }
@@ -106,10 +106,8 @@ export class SeatPicker extends Component {
   deleteSeat = (row, number) => {
     const { selectedSeats } = this.state
     if (selectedSeats[row]) {
-      selectedSeats[row] = selectedSeats[row].filter((value) => {
-        return value !== number
-      })
-      if (!selectedSeats[row].length > 0) {
+      delete selectedSeats[row][number]
+      if (!Object.keys(selectedSeats[row]).length > 0) {
         delete (selectedSeats[row])
       }
     }
@@ -124,13 +122,14 @@ export class SeatPicker extends Component {
     return { ...tooltipOverrides }
   }
 
-  acceptSelection = (row, number, tooltip) => {
-    const { selectedSeats, tooltipOverrides } = this.state
-    const size = this.state.size
+  acceptSelection = (row, number, id, tooltip) => {
+    const { selectedSeats, tooltipOverrides, size } = this.state
+    const { maxReservableSeats } = this.props
+    if(size<maxReservableSeats)
     this.setState(
       {
         tooltipOverrides: this.addTooltip(tooltipOverrides, row, number, tooltip),
-        selectedSeats: this.addSeat(selectedSeats, row, number),
+        selectedSeats: this.addSeat(selectedSeats, row, number, id),
         size: size + 1
       }
     )
@@ -153,14 +152,28 @@ export class SeatPicker extends Component {
     const {
       maxReservableSeats,
       addSeatCallback,
-      removeSeatCallback
+      removeSeatCallback,
+      continuous
     } = this.props
     const seatAlreadySelected = this.includeSeat(selectedSeats, row, number)
 
-    if (size < maxReservableSeats && !seatAlreadySelected) {
-      addSeatCallback(row, number, id, this.acceptSelection)
-    } else if (selectedSeats[row] && seatAlreadySelected) {
-      removeSeatCallback(row, number, id, this.acceptDeselection)
+    if(seatAlreadySelected){
+      removeSeatCallback({row, number, id}, this.acceptDeselection)
+    }else{
+      if(size < maxReservableSeats){
+        addSeatCallback({row, number, id}, this.acceptSelection)
+      }else if(continuous){
+        const auxRow = Object.keys(selectedSeats)[0]
+        const auxNumber = Object.keys(selectedSeats[auxRow])[0]
+        addSeatCallback(
+          { row, number, id }, this.acceptSelection,
+          {
+            row: auxRow,
+            number: auxNumber,
+            id: selectedSeats[auxRow][auxNumber]
+          }, this.acceptDeselection
+        )
+      }
     }
   }
 
@@ -189,7 +202,7 @@ export class SeatPicker extends Component {
         isSelected,
         selectedSeat: null,
         seats: row,
-        key: `Row${rowNumber}`,
+        //key: `Row${rowNumber}`,
         selectSeat: this.selectSeat
       }
 
@@ -201,7 +214,7 @@ export class SeatPicker extends Component {
 
   renderSeats(seats, rowNumber, isRowSelected) {
     const { selectedSeats, size, rowLength, tooltipOverrides } = this.state
-    const { maxReservableSeats } = this.props
+    const { maxReservableSeats, continuous } = this.props
     const blanks = new Array((rowLength - seats.length) > 0 ? (rowLength - seats.length) : 0).fill(0)
     const row = seats.map((seat, index) => {
       if (seat === null) return <Blank key={index} />
@@ -216,7 +229,7 @@ export class SeatPicker extends Component {
         orientation: seat.orientation,
         isReserved: seat.isReserved,
         tooltip,
-        isEnabled: size < maxReservableSeats,
+        isEnabled: size < maxReservableSeats || continuous,
         selectSeat: this.selectSeat.bind(this, rowNumber, seat.number, seat.id),
         seatNumber: seat.number,
         tooltipProps: this.props.tooltipProps
@@ -236,6 +249,7 @@ SeatPicker.propTypes = {
   addSeatCallback: PropTypes.func,
   alpha: PropTypes.bool,
   visible: PropTypes.bool,
+  continuous: PropTypes.bool,
   selectedByDefault: PropTypes.bool,
   removeSeatCallback: PropTypes.func,
   maxReservableSeats: PropTypes.number,
