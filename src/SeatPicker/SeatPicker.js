@@ -6,11 +6,11 @@ import Blank from './Blank'
 
 export class SeatPicker extends Component {
   static defaultProps = {
-    addSeatCallback: ({row, number, id}, addCb) => {
+    addSeatCallback: ({ row, number, id }, addCb) => {
       console.log(`Added seat ${number}, row ${row}, id ${id}`)
       addCb(row, number, id)
     },
-    removeSeatCallback: ({row, number, id}, removeCb) => {
+    removeSeatCallback: ({ row, number, id }, removeCb) => {
       console.log(`Removed seat ${number}, row ${row}, id ${id}`)
       removeCb(row, number)
     },
@@ -125,14 +125,15 @@ export class SeatPicker extends Component {
   acceptSelection = (row, number, id, tooltip) => {
     const { selectedSeats, tooltipOverrides, size } = this.state
     const { maxReservableSeats } = this.props
-    if(size<maxReservableSeats)
-    this.setState(
-      {
-        tooltipOverrides: this.addTooltip(tooltipOverrides, row, number, tooltip),
-        selectedSeats: this.addSeat(selectedSeats, row, number, id),
-        size: size + 1
-      }
-    )
+    if (size < maxReservableSeats) {
+      this.setState(
+        {
+          tooltipOverrides: this.addTooltip(tooltipOverrides, row, number, tooltip),
+          selectedSeats: this.addSeat(selectedSeats, row, number, id),
+          size: size + 1
+        }
+      )
+    }
   }
 
   acceptDeselection = (row, number, tooltip) => {
@@ -157,12 +158,12 @@ export class SeatPicker extends Component {
     } = this.props
     const seatAlreadySelected = this.includeSeat(selectedSeats, row, number)
 
-    if(seatAlreadySelected){
-      removeSeatCallback({row, number, id}, this.acceptDeselection)
-    }else{
-      if(size < maxReservableSeats){
-        addSeatCallback({row, number, id}, this.acceptSelection)
-      }else if(continuous){
+    if (seatAlreadySelected) {
+      removeSeatCallback({ row, number, id }, this.acceptDeselection)
+    } else {
+      if (size < maxReservableSeats) {
+        addSeatCallback({ row, number, id }, this.acceptSelection)
+      } else if (continuous) {
         const auxRow = Object.keys(selectedSeats)[0]
         const auxNumber = Object.keys(selectedSeats[auxRow])[0]
         addSeatCallback(
@@ -202,7 +203,7 @@ export class SeatPicker extends Component {
         isSelected,
         selectedSeat: null,
         seats: row,
-        //key: `Row${rowNumber}`,
+        // key: `Row${rowNumber}`,
         selectSeat: this.selectSeat
       }
 
