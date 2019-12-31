@@ -1,30 +1,22 @@
 {
   "name": "react-seat-picker-example",
   "homepage": "https://Rogger794.github.io/react-seat-picker",
-  "version": "1.0.0",
+  "version": "1.5.2",
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "gh-pages": "^2.1.1",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0",
-    "react-scripts": "^3.2.0",
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "^1.1.4",
     "react-tooltip": "^3.11.1",
     "react-seat-picker": "link:.."
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   }
 }
