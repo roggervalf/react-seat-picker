@@ -30,7 +30,7 @@
     "build:watch": "rollup -c -w",
     "start": "npm-run-all clean build:watch",
     "prepare": "yarn build",
-    "predeploy": "cd example && yarn install && yarn run build",
+    "predeploy": "cd example && yarn && yarn build",
     "deploy": "gh-pages -d example/build"
   },
   "keywords": [
@@ -41,9 +41,8 @@
   ],
   "peerDependencies": {
     "prop-types": "^15.5.4",
-    "react": "^15.0.0 || ^16.0.0",
-    "react-dom": "^15.0.0 || ^16.0.0",
-    "react-tooltip": "^3.11.1"
+    "react": ">=^15.0.0",
+    "react-dom": ">=^15.0.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
@@ -75,7 +74,6 @@
     "prettier": "^1.19.1",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
-    "react-scripts": "^1.1.4",
     "rimraf": "^3.0.0",
     "rollup": "^1.27.5",
     "rollup-plugin-babel": "^4.3.3",
@@ -89,7 +87,9 @@
   "files": [
     "dist"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "react-tooltip": "^3.11.1"
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

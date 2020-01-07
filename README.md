@@ -12,7 +12,7 @@
 
 ## About
 
-This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap) whithout dependencies and some extra properties.
+This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap) with extra properties.
 
 ## Install
 

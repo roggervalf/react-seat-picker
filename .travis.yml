@@ -2,3 +2,14 @@ language: node_js
 node_js:
   - 9
   - 8
+cache:
+  directories:
+    - node_modules
+notifications:
+  email:
+    recipients:
+      - rogger.valverde@uni.pe
+    on_success: change
+    on_failure: always
+install:
+  - yarn

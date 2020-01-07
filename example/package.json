@@ -3,13 +3,10 @@
   "homepage": "https://Rogger794.github.io/react-seat-picker",
   "version": "1.5.2",
   "license": "MIT",
-  "private": true,
   "dependencies": {
-    "prop-types": "^15.7.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-scripts": "^1.1.4",
-    "react-tooltip": "^3.11.1",
     "react-seat-picker": "link:.."
   },
   "scripts": {
