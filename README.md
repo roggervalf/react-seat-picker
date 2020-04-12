@@ -6,7 +6,7 @@
 
 ## Demo
 
-<!-- This is the [Demo Page](https://rogger794.github.io/react-seat-picker/). -->
+<!-- This is the [Demo Page](https://roggervalf.github.io/react-seat-picker/). -->
 
 [![Edit SeatPicker](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/nwk09p7o34?fontsize=14)
 
@@ -127,32 +127,32 @@ export default class App extends Component {
 
 ### Props
 
-Name | Type | Default | Required|Description
----- | ----- | ------- | ------ | -----------
-`alpha` | boolean | `false` | `false` | Enumerate your rows using letters (`true`), otherwise using numbers (`false`).
-`visible` | boolean | `false` | `false` | Shows the row numbers (`true`), otherwise they are hidden (`false`).
-`loading` | boolean | `false` | `false` | Shows a white mask on the seatpicker.
-`continuous` | boolean | `false` | `false` | Allows to continue select seats while remove previos ones if you already have max reservable seats.
-`selectedByDefault` | boolean | `false` | `false` | Allow to have already selected seats (`true`), otherwise (`false`) they aren´t going to be checked by their isSelected property.
-`maxReservableSeats` | number | 0 | `false` | Limits the number of selectable seats.
-`addSeatCallback` | function | ({row, number, id}, cb) => {console.log( `Added seat ${number}, row ${row}, id ${id}`); addCb(row,number,id);} | `false` | Should be customized as you need. Remember to use addCb(row,number,id) for accepting the selection, otherwise ommit it. For continuous case see the example where should use removeCb(day,number) for previoslyselected appointment.
-`removeSeatCallback` | function | ({row, number, id}, removeCb) => {console.log( `Removed seat ${number}, row ${row}, id ${id}`); removeCb(row,number);} | `false` | Should be customized as you need. Remember to use removeCb(row,number) for accepting the deselection, otherwise ommit it.
-`tooltipProps` | object | - | `false` | An object with props (options) for the [react-tooltip](https://www.npmjs.com/package/react-tooltip) components.
-`rows` | array | - | `true` | Array of arrays of json. (See next section).
+| Name                 | Type     | Default                                                                                                                | Required | Description                                                                                                                                                                                                                          |
+| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `alpha`              | boolean  | `false`                                                                                                                | `false`  | Enumerate your rows using letters (`true`), otherwise using numbers (`false`).                                                                                                                                                       |
+| `visible`            | boolean  | `false`                                                                                                                | `false`  | Shows the row numbers (`true`), otherwise they are hidden (`false`).                                                                                                                                                                 |
+| `loading`            | boolean  | `false`                                                                                                                | `false`  | Shows a white mask on the seatpicker.                                                                                                                                                                                                |
+| `continuous`         | boolean  | `false`                                                                                                                | `false`  | Allows to continue select seats while remove previos ones if you already have max reservable seats.                                                                                                                                  |
+| `selectedByDefault`  | boolean  | `false`                                                                                                                | `false`  | Allow to have already selected seats (`true`), otherwise (`false`) they aren´t going to be checked by their isSelected property.                                                                                                     |
+| `maxReservableSeats` | number   | 0                                                                                                                      | `false`  | Limits the number of selectable seats.                                                                                                                                                                                               |
+| `addSeatCallback`    | function | ({row, number, id}, cb) => {console.log( `Added seat ${number}, row ${row}, id ${id}`); addCb(row,number,id);}         | `false`  | Should be customized as you need. Remember to use addCb(row,number,id) for accepting the selection, otherwise ommit it. For continuous case see the example where should use removeCb(day,number) for previoslyselected appointment. |
+| `removeSeatCallback` | function | ({row, number, id}, removeCb) => {console.log( `Removed seat ${number}, row ${row}, id ${id}`); removeCb(row,number);} | `false`  | Should be customized as you need. Remember to use removeCb(row,number) for accepting the deselection, otherwise ommit it.                                                                                                            |
+| `tooltipProps`       | object   | -                                                                                                                      | `false`  | An object with props (options) for the [react-tooltip](https://www.npmjs.com/package/react-tooltip) components.                                                                                                                      |
+| `rows`               | array    | -                                                                                                                      | `true`   | Array of arrays of json. (See next section).                                                                                                                                                                                         |
 
 ### Seats properties
 
 Each json in rows prop could be `null` (empty seat) or has these properties.
 
-Name | Type | Default | Required|Description
----- | ----- | ------- | ------ | -----------
-`id` | number or string | undefined | `false` | It identify a seat.
-`number` | number or string | undefined | `false` | It will be showed inside seat.
-`tooltip` | string | undefined | `false` | Text of the tooltip when hovering over the seat.
-`isSelected` | boolean | `false` | `false` | It will be checked in case selectedByDefault is true.
-`isReserved` | boolean | `false` | `false` | Disable the option of click it.
-`orientation` | string | north | `false` | Define the position of an specific seat (north, south, east, west).
+| Name          | Type             | Default   | Required | Description                                                         |
+| ------------- | ---------------- | --------- | -------- | ------------------------------------------------------------------- |
+| `id`          | number or string | undefined | `false`  | It identify a seat.                                                 |
+| `number`      | number or string | undefined | `false`  | It will be showed inside seat.                                      |
+| `tooltip`     | string           | undefined | `false`  | Text of the tooltip when hovering over the seat.                    |
+| `isSelected`  | boolean          | `false`   | `false`  | It will be checked in case selectedByDefault is true.               |
+| `isReserved`  | boolean          | `false`   | `false`  | Disable the option of click it.                                     |
+| `orientation` | string           | north     | `false`  | Define the position of an specific seat (north, south, east, west). |
 
 ## License
 
-MIT © [Rogger794](https://github.com/Rogger794)
+MIT © [roggervalf](https://github.com/roggervalf)
