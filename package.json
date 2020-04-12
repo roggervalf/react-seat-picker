@@ -2,7 +2,10 @@
   "name": "react-seat-picker",
   "version": "1.5.2",
   "description": "A React component to select seats.",
-  "author": "roggervalf",
+  "author": {
+    "name": "roggervalf",
+    "email": "rogger.valverde@uni.pe"
+  },
   "license": "MIT",
   "repository": "roggervalf/react-seat-picker",
   "main": "dist/index.js",
@@ -26,9 +29,10 @@
     "build": "rollup -c",
     "build:watch": "rollup -c -w",
     "start": "npm-run-all clean build:watch",
-    "prepare": "yarn run build",
-    "predeploy": "cd example && yarn install && yarn run build",
-    "deploy": "gh-pages -d example/build"
+    "prepare": "yarn build",
+    "predeploy": "cd example && yarn && yarn build",
+    "deploy": "gh-pages -d example/build",
+    "cm": "git cz"
   },
   "keywords": [
     "seat",
@@ -42,14 +46,24 @@
     "react-dom": "^15.0.0 || ^16.0.0",
     "react-tooltip": "^3.11.1"
   },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
   "devDependencies": {
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
     "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-env": "^7.7.4",
     "@babel/preset-react": "^7.7.4",
+    "@commitlint/cli": "^8.2.0",
+    "@commitlint/config-conventional": "^8.2.0",
+    "@commitlint/travis-cli": "^8.3.5",
     "@svgr/rollup": "^4.3.3",
     "babel-eslint": "^10.0.3",
+    "commitizen": "^4.0.3",
+    "cz-conventional-changelog": "^3.1.0",
     "cross-env": "^6.0.3",
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
@@ -85,9 +99,15 @@
     "dist"
   ],
   "dependencies": {},
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run pretest"
+      "pre-commit": "yarn pretest",
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   }
 }
