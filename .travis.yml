@@ -19,6 +19,9 @@ script:
   - git config --global user.email $GH_EMAIL
   - commitlint-travis
 
+after_success:
+  - yarn semantic-release
+
 branches:
   except:
     - "/^v\\d+\\.\\d+\\.\\d+$/"
