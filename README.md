@@ -2,7 +2,7 @@
 
 > Component to pick seats
 
-[![NPM](https://img.shields.io/npm/v/react-seat-picker.svg)](https://www.npmjs.com/package/react-seat-picker) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![NPM](https://img.shields.io/npm/v/react-seat-picker.svg)](https://www.npmjs.com/package/react-seat-picker) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier) [![NPM downloads](https://img.shields.io/npm/dm/react-seat-picker)](https://www.npmjs.com/package/react-seat-picker) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
 ## Demo
 
@@ -12,7 +12,7 @@
 
 ## About
 
-This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap) whithout dependencies and some extra properties.
+This is a fork of [react-seatmap](https://www.npmjs.com/package/react-seatmap) without dependencies and some extra properties.
 
 ## Install
 
@@ -50,7 +50,7 @@ export default class App extends Component {
     })
   }
 
-  addSeatCallbackContinousCase = ({ row, number, id }, addCb, params, removeCb) => {
+  addSeatCallbackContinuousCase = ({ row, number, id }, addCb, params, removeCb) => {
     this.setState({
       loading: true
     }, async () => {
@@ -108,7 +108,7 @@ export default class App extends Component {
         <h1>Seat Picker Continuous Case</h1>
         <div style={{ marginTop: '100px' }}>
           <SeatPicker
-            addSeatCallback={this.addSeatCallbackContinousCase}
+            addSeatCallback={this.addSeatCallbackContinuousCase}
             removeSeatCallback={this.removeSeatCallback}
             rows={rows}
             maxReservableSeats={3}
@@ -127,18 +127,18 @@ export default class App extends Component {
 
 ### Props
 
-| Name                 | Type     | Default                                                                                                                | Required | Description                                                                                                                                                                                                                          |
-| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `alpha`              | boolean  | `false`                                                                                                                | `false`  | Enumerate your rows using letters (`true`), otherwise using numbers (`false`).                                                                                                                                                       |
-| `visible`            | boolean  | `false`                                                                                                                | `false`  | Shows the row numbers (`true`), otherwise they are hidden (`false`).                                                                                                                                                                 |
-| `loading`            | boolean  | `false`                                                                                                                | `false`  | Shows a white mask on the seatpicker.                                                                                                                                                                                                |
-| `continuous`         | boolean  | `false`                                                                                                                | `false`  | Allows to continue select seats while remove previos ones if you already have max reservable seats.                                                                                                                                  |
-| `selectedByDefault`  | boolean  | `false`                                                                                                                | `false`  | Allow to have already selected seats (`true`), otherwise (`false`) they aren´t going to be checked by their isSelected property.                                                                                                     |
-| `maxReservableSeats` | number   | 0                                                                                                                      | `false`  | Limits the number of selectable seats.                                                                                                                                                                                               |
-| `addSeatCallback`    | function | ({row, number, id}, cb) => {console.log( `Added seat ${number}, row ${row}, id ${id}`); addCb(row,number,id);}         | `false`  | Should be customized as you need. Remember to use addCb(row,number,id) for accepting the selection, otherwise ommit it. For continuous case see the example where should use removeCb(day,number) for previoslyselected appointment. |
-| `removeSeatCallback` | function | ({row, number, id}, removeCb) => {console.log( `Removed seat ${number}, row ${row}, id ${id}`); removeCb(row,number);} | `false`  | Should be customized as you need. Remember to use removeCb(row,number) for accepting the deselection, otherwise ommit it.                                                                                                            |
-| `tooltipProps`       | object   | -                                                                                                                      | `false`  | An object with props (options) for the [react-tooltip](https://www.npmjs.com/package/react-tooltip) components.                                                                                                                      |
-| `rows`               | array    | -                                                                                                                      | `true`   | Array of arrays of json. (See next section).                                                                                                                                                                                         |
+| Name                 | Type     | Default                                                                                                                | Required | Description                                                                                                                                                                                                                           |
+| -------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `alpha`              | boolean  | `false`                                                                                                                | `false`  | Enumerate your rows using letters (`true`), otherwise using numbers (`false`).                                                                                                                                                        |
+| `visible`            | boolean  | `false`                                                                                                                | `false`  | Shows the row numbers (`true`), otherwise they are hidden (`false`).                                                                                                                                                                  |
+| `loading`            | boolean  | `false`                                                                                                                | `false`  | Shows a white mask on the seat picker.                                                                                                                                                                                                |
+| `continuous`         | boolean  | `false`                                                                                                                | `false`  | Allows to continue select seats while remove previous ones if you already have max reservable seats.                                                                                                                                  |
+| `selectedByDefault`  | boolean  | `false`                                                                                                                | `false`  | Allow to have already selected seats (`true`), otherwise (`false`) they aren't going to be checked by their isSelected property.                                                                                                      |
+| `maxReservableSeats` | number   | 0                                                                                                                      | `false`  | Limits the number of selectable seats.                                                                                                                                                                                                |
+| `addSeatCallback`    | function | ({row, number, id}, cb) => {console.log( `Added seat ${number}, row ${row}, id ${id}`); addCb(row,number,id);}         | `false`  | Should be customized as you need. Remember to use addCb(row,number,id) for accepting the selection, otherwise omit it. For continuous case see the example where should use removeCb(day,number) for previously selected appointment. |
+| `removeSeatCallback` | function | ({row, number, id}, removeCb) => {console.log( `Removed seat ${number}, row ${row}, id ${id}`); removeCb(row,number);} | `false`  | Should be customized as you need. Remember to use removeCb(row,number) for accepting the deselection, otherwise omit it.                                                                                                              |
+| `tooltipProps`       | object   | -                                                                                                                      | `false`  | An object with props (options) for the [react-tooltip](https://www.npmjs.com/package/react-tooltip) components.                                                                                                                       |
+| `rows`               | array    | -                                                                                                                      | `true`   | Array of arrays of json. (See next section).                                                                                                                                                                                          |
 
 ### Seats properties
 
