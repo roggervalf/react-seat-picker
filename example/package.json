@@ -10,8 +10,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-scripts": "^3.2.0",
-    "react-tooltip": "^3.11.1",
-    "react-seat-picker": "link:.."
+    "react-seat-picker": "file:.."
   },
   "browserslist": [
     ">0.2%",
