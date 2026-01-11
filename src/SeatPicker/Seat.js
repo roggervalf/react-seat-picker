@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import ReactTooltip from "react-tooltip";
+import Tooltip from "./Tooltip";
 
 export default class Seat extends Component {
   static defaultProps = {
@@ -27,7 +27,7 @@ export default class Seat extends Component {
       ` seat--${!orientation ? "north" : orientation}`;
     return (
       <div data-tip={tooltip} className={className} onClick={this.handleClick}>
-        {tooltip ? <ReactTooltip {...this.props.tooltipProps} /> : null}
+        {tooltip ? <Tooltip {...this.props.tooltipProps} /> : null}
         <span className="seat__number">{this.props.seatNumber}</span>
       </div>
     );

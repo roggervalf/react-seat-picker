@@ -1,0 +1,71 @@
+/* Tooltip base styles */
+.react-tooltip {
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 1.4;
+  max-width: 200px;
+  word-wrap: break-word;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  pointer-events: none;
+}
+
+.react-tooltip-solid {
+  background-color: #333;
+  color: #fff;
+  opacity: 1;
+}
+
+.react-tooltip-float {
+  background-color: rgba(51, 51, 51, 0.9);
+  color: #fff;
+  opacity: 0.9;
+}
+
+/* Arrow styles can be added later if needed */
+.react-tooltip::before {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+/* Top arrow */
+.react-tooltip.place-top::before {
+  bottom: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #333;
+}
+
+/* Bottom arrow */
+.react-tooltip.place-bottom::before {
+  top: -5px;
+  left: 50%;
+  margin-left: -5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid #333;
+}
+
+/* Left arrow */
+.react-tooltip.place-left::before {
+  right: -5px;
+  top: 50%;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-left: 5px solid #333;
+}
+
+/* Right arrow */
+.react-tooltip.place-right::before {
+  left: -5px;
+  top: 50%;
+  margin-top: -5px;
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #333;
+}
