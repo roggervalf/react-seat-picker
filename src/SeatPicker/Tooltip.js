@@ -36,7 +36,7 @@ export default class Tooltip extends Component {
 
   updateDataTipElements = () => {
     const elements = document.querySelectorAll("[data-tip]");
-    elements.forEach((element) => {
+    elements.forEach(element => {
       element.addEventListener("mouseenter", this.handleMouseEnter);
       element.addEventListener("mouseleave", this.handleMouseLeave);
     });
@@ -44,13 +44,13 @@ export default class Tooltip extends Component {
 
   removeAllEventListeners = () => {
     const elements = document.querySelectorAll("[data-tip]");
-    elements.forEach((element) => {
+    elements.forEach(element => {
       element.removeEventListener("mouseenter", this.handleMouseEnter);
       element.removeEventListener("mouseleave", this.handleMouseLeave);
     });
   };
 
-  handleMouseEnter = (event) => {
+  handleMouseEnter = event => {
     const content = event.target.getAttribute("data-tip");
     if (!content) return;
 
@@ -80,12 +80,12 @@ export default class Tooltip extends Component {
     }, this.props.delayHide);
   };
 
-  calculatePosition = (target) => {
+  calculatePosition = target => {
     const rect = target.getBoundingClientRect();
     const { place } = this.props;
     const tooltipWidth = 200; // Approximate tooltip width
     const tooltipHeight = 30; // Approximate tooltip height
-    
+
     let top, left;
 
     switch (place) {
@@ -144,11 +144,7 @@ export default class Tooltip extends Component {
     };
 
     return (
-      <div
-        ref={this.tooltipRef}
-        className={tooltipClasses}
-        style={style}
-      >
+      <div ref={this.tooltipRef} className={tooltipClasses} style={style}>
         {multiline ? (
           <div
             dangerouslySetInnerHTML={{
