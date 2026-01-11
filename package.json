@@ -1,6 +1,6 @@
 {
   "name": "react-seat-picker",
-  "version": "1.5.3",
+  "version": "2.0.0",
   "description": "A React component to select seats.",
   "author": {
     "name": "roggervalf",
